@@ -4,6 +4,10 @@ import time
 import pyfiglet
 import requests
 
+# Make by Andrea Mantovani
+# andri.mantovani@gmail.com
+# Instagram --> @andre_manto_ 
+
 class Bdswissbot():
     def __init__(self, email, password):
         self.browserProfile = webdriver.ChromeOptions()
@@ -13,12 +17,16 @@ class Bdswissbot():
         self.password = password
 
     def signIn(self):
+        
+        #inserire numero di login per bdswiss 
+        NUMBER = 1234
+        
         ascii_banner = pyfiglet.figlet_format("Roboforex")
         print("\n")
         print(ascii_banner)
         print("\n - Development by @andre_manto_ (instagram) \n\n")
 
-        self.browser.get('https://dashboard.bdswiss.com/trade/forex/6418877')
+        self.browser.get('https://dashboard.bdswiss.com/trade/forex/NUMBER')
         time.sleep(3)
         emailInput = self.browser.find_element_by_id('email')
         passwordInput = self.browser.find_element_by_id('password')
@@ -26,7 +34,7 @@ class Bdswissbot():
         passwordInput.send_keys(self.password)
         passwordInput.send_keys(Keys.ENTER)
         time.sleep(2)
-        self.browser.get('https://trade.bdswiss.com/?embedded=true&login=6418877')
+        self.browser.get('https://trade.bdswiss.com/?embedded=true&login=NUMBER')
         i = 0
         while(i < 10):
             print("Loading      -->       "+str(i+1)+"/10")
@@ -125,6 +133,8 @@ bot.signIn()
 
 #richieste al server di segnali per l'invio del segnale solo per inseire un nuovo trade
 old = ''
+
+# per ricevere segnali in loop
 while True:
     r = requests.get('http://localhost/bdswiss_bot/test.php')
     if(r.text != old):
